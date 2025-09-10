@@ -34,6 +34,7 @@ class _FormPageState extends State<FormPage> {
   final TextEditingController _apellidosController = TextEditingController();
   final TextEditingController _correoController = TextEditingController();
   final TextEditingController _ciudadController = TextEditingController();
+  final TextEditingController _direccionController = TextEditingController();
 
   void _ingresarDatos() {
     if (_formKey.currentState!.validate()) {
@@ -41,12 +42,13 @@ class _FormPageState extends State<FormPage> {
       String apellidos = _apellidosController.text;
       String correo = _correoController.text;
       String ciudad = _ciudadController.text;
+      String direccion = _direccionController.text;
 
       ScaffoldMessenger.of(context).showSnackBar(
         SnackBar(
           backgroundColor: Colors.grey,
           content: Text(
-            '✅ Datos ingresados:\nNombre: $nombre\nApellidos: $apellidos\nCiudad: $ciudad\nCorreo: $correo',
+            '✅ Datos ingresados:\nNombre: $nombre\nApellidos: $apellidos\nCiudad: $ciudad\nDireccion: $direccion\nCorreo: $correo',
             style: const TextStyle(color: Colors.white),
           ),
         ),
@@ -55,7 +57,10 @@ class _FormPageState extends State<FormPage> {
         _nombreController.clear();
         _apellidosController.clear();
         _correoController.clear();
-        _ciudadController.clear();});
+        _ciudadController.clear();
+        _direccionController.clear();});
+
+
     }
   }
 
@@ -122,6 +127,13 @@ class _FormPageState extends State<FormPage> {
                     TextFormField(
                       controller: _ciudadController,
                       decoration: _inputDecoration("Ciudad", Icons.location_city),
+                      validator: (value) =>
+                          value == null || value.isEmpty ? 'Ingrese la ciudad' : null,
+                    ),
+                    const SizedBox(height: 15),
+                    TextFormField(
+                      controller: _direccionController,
+                      decoration: _inputDecoration("Dirección", Icons.home),
                       validator: (value) =>
                           value == null || value.isEmpty ? 'Ingrese la ciudad' : null,
                     ),
